@@ -10,7 +10,7 @@ Investigating lung cancer cases is crucial due to its public health implications
 
 ## Data
 
-We used data reported by  https://github.com/indranil09/VA_LungCancer_INLA. The data are obtained from the features 
+We used data reported by Bridson et al., see the GitHub https://github.com/indranil09/VA_LungCancer_INLA. The data are obtained from the features 
 
 
 1. Demographics: Gender (F, M), Race (Black, White, Other), Ethnicity (Hispanic, Latino, Not Hispanic or Latino), Age
