@@ -56,36 +56,55 @@ the data. We also used XGBoost Poisson Regression to model the prevalence lung c
 
 The study result suggests that features such as  
 
-    * Pct_BelowPoverty_18andOver  (Below poverty level of residents of age 18 and above (%))
-    * Pct_White_65andOver (White race residents of age 65 and above (%))
-    * BINGE_CrudePrev (Binge drinking prevalence of residents) 
-    * CSMOKING_CrudePrevOBESITY_CrudePrev (Smoking and Obesity Prevalence of residents)    
-    * Median_Household_Income  (Median household income of residents) 
-    * ZCTA_pm2_5  (Average daily air quality PM2.5 concentration)
-    * sdi_score (Social deprivation index )
-    * Pct_White_Male_Between18and65 (White male race residents of age between 18 and 65 (%)) 
-    * Pct_White_Female_Between18and65 (White female race residents of age between 18 and 65 (%)) 
-    * Pct_Black_Female_Between18and65 (Black female race residents of age between 18 and 65 (%)) 
-    * Pct_Black_Male_Between18and65 (Black male race residents of age between 18 and 65 (%))
-    * Pct_Hisp_Male_Between18and65 (Hispanic male race residents of age between 18 and 65 (%))
-    * Pct_Hisp_Female_Between18and65 (Hispanic female race residents of age between 18 and 65 (%))
+   * Median_Household_Income
+   * ZCTA_pm2_5 
+   * OBESITY_CrudePrev
+   * Pct_Population_Female_65andOver
+   * Pct_Hisp_Female_Between18and65 
+   * CSMOKING_CrudePrev
+   * BINGE_CrudePrev
+   * Pct_Population_Male_65andOver 
+   * Pct_Hisp_Female_65andOver
+   * sdi_score
+   * Pct_White_Male_Between18and65
+   * Pct_White_65andOver
+   * Pct_White_Male_65andOver
+   * Pct_Hisp_65andOver 
+   * Pct_Black_Female_Between18and65
+   * Pct_White_Female_Between18and65 
+   * Pct_Black_Female_65andOver
+   * Pct_Hisp_Male_Between18and65
+   * Pct_BelowPoverty_18andOver
+
  are strong association with lung cancer prevalence
 
 
 ## Executive summary
 
-This study analyzes and models lung cancer prevalence using a combination of demographic, behavioural, and socioeconomic features. The primary objective is to identify key featuress associated with lung cancer incidence. 
-The dataset includes demographic features such as gender, race (Black, White, Other), ethnicity, and age distribution—particularly the percentage of the population aged 65 and older. Behavioural risk features include the prevalence of smoking, binge drinking, and obesity. 
-Socioeconomic indicators include the percentage of the population living below the poverty line and the Social Deprivation Index, a composite metric based on features related to education, employment, and housing. 
-Data preprocessing is performed using standard Python libraries (Pandas, NumPy, Scikit-learn) to clean and transform the dataset. Exploratory data analysis is conducted to assess the relationship between lung cancer cases and individual features and to examine correlations among features. 
-Heatmaps revealed notable correlations, indicating potential multicollinearity and motivating the use of regularization techniques for feature selection. 
-We have used a generalized linear model with elastic net regularization to identify key features influencing lung cancer prevalence. All features are transformed and standardized to ensure they are on a similar scale. 
-We have also implemented an XGBoost model using a custom Poisson loss function tailored to our count-based response variable to further enhance model performance and interpretability. 
-This approach has outperformed the generalized linear model, achieving a 10.184% reduction in mean absolute error. In general, the results highlight strong associations between lung cancer prevalence and several factors such as age (particularly older populations), smoking prevalence, poverty, and the social deprivation index. 
-These findings underscore the importance of addressing behavioural risks and socioeconomic disparities in public health initiatives. Interventions aimed at smoking cessation, poverty reduction, and mitigating social deprivation could significantly contribute to lowering lung cancer incidence.
+Introduction: Lung cancer is one of the most critical and pressing public health challenges.  This study analyzes and models the prevalence of lung cancer using a combination of demographic, behavioral, and socioeconomic features.\\
+
+
+Goal: To discern demographic, behavioral, socioeconomic and environmental drivers of lung cancer incidence in Virginia counties (2014-2018) and build predictive models to inform public health policy.\\
+
+Data overview: County-level aggregated counts of lung cancer cases among populations 18 and older, with data derived from the following domains: \textit{Demographic} (\% Male, \% Female, \% Black, \% White, \% Hispanic, \% aged 65+); \textit{Behavioral} (Prevalence of Smoking, Binge Drinking, and Obesity),  \textit{Socioeconomic} (\% Poverty rate, Social Deprivation Index (SDI), Median Household Income), and  \textit{Environmental} (PM2.5 Air Quality ($\mu$g/m$^3$)).
+We preprocessed the data by removing missing values, performing feature engineering, and scaling the features to better capture the features that drive cancer incidence.\\
+
+
+
+Modelling Approach: Poisson generalized linear model with elastic net, which combines $L_{1}$ and $L_{2}$ penalties, is used for feature selection. XGBoost with a Poisson loss function, a boosted tree model tuned for count data, is proposed to improve predictive accuracy and identify features that drive lung cancer prevalence. After splitting the processed data into training (70\%) and testing (30\%) sets, both models are trained on the training data with five-fold cross-validation, and their hyperparameters are tuned using mean absolute error.\\
+
+
+Implementation: We used several Python packages to preprocess the data and train the models. For XGBoost, we incorporated a custom loss function into the existing implementation to train the proposed model tailored to our problem.\\
+
+
+Results: The results from the \textbf{Poisson generalized linear model with elastic net regularization} suggest strong positive associations between lung cancer prevalence and features such as smoking rates, the proportion of the population aged 65 and older, and the proportions of older Black and White individuals in the population under study. In contrast, negative associations are observed with poverty rates and the proportion of Hispanic individuals. Using \textbf{XGBoost with a Poisson loss function}, we achieved improved predictive performance, with a mean absolute error (MAE) of 5.963 compared to 6.313 from the GLM, representing a 5.44\% improvement. The most important features identified by the XGBoost model include median household income, PM2.5 levels, smoking rates, and obesity prevalence. These features consistently demonstrated strong predictive power, underscoring their central role in explaining variation in lung cancer prevalence.\\
+
+Conclusion: Lung cancer prevalence is driven by a combination of demographic, behavioural, and environmental features. Structural inequality and public health behaviours, such as smoking, are key contributors to cancer incidence. Machine learning techniques, when combined with domain knowledge, enhance the predictive accuracy of cancer prevalence.\\
+
+Recommendation: To reduce lung cancer incidence, it is essential to prioritize interventions for high-risk groups, such as older adults, smokers, and communities facing environmental and economic stress. Besides, integrating behavioural and environmental health data into cancer prevention programs is crucial.
 
 
 ## Future work
 
-
+This work can be extended by incorporating spatial information into the model. This approach may help us better understand the drivers of lung cancer prevalence and visualize the spatial distribution of lung cancer incidence in the study area..
 
